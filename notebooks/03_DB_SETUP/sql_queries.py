@@ -15,15 +15,15 @@ CREATE TABLE crime_fact (
     crime_fact_id int  NOT NULL,
     numOffenses int  NOT NULL,
     temp int  NOT NULL,
-    humidity int  NOT NULL,
     feels_like int  NOT NULL,
+    humidity float  NOT NULL,
     rain int  NOT NULL,
     snow int  NOT NULL,
-    datetime_id int  NOT NULL,
-    address_dim_id int  NOT NULL,
-    premises_dim_id int  NOT NULL,
     offense_dim_id int  NOT NULL,
     police_beat_dim_id int  NOT NULL,
+    premises_dim_id int  NOT NULL,
+    address_dim_id int  NOT NULL,
+    datetime_id int  NOT NULL,
     CONSTRAINT crime_fact_pk PRIMARY KEY (crime_fact_id)
 );""")
 
@@ -84,18 +84,18 @@ INSERT INTO crime_fact (
 	crime_fact_id,
     numOffenses, 
     temp, 
-    humidity, 
     feels_like, 
+    humidity, 
     rain, 
-    snow,
-    datetime_id, 
-    address_dim_id, 
-    premises_dim_id, 
+    snow,   
     offense_dim_id, 
-    police_beat_dim_id
+    police_beat_dim_id,
+    premises_dim_id, 
+    address_dim_id, 
+    datetime_dim_id 
 )
 VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-ON CONFLICT (crime_fact_id) DO NOTHING
+-- ON CONFLICT (crime_fact_id) DO NOTHING
 """)
 
 
@@ -106,7 +106,7 @@ INSERT INTO address_dim (
 )
 VALUES (%s,%s)
 
-ON CONFLICT (address_id) DO NOTHING
+-- ON CONFLICT (address_id) DO NOTHING
 """)
 
 
@@ -122,7 +122,7 @@ INSERT INTO datetime_dim (
     weekday
 )
 VALUES (%s,%s, %s, %s, %s, %s, %s, %s)
-ON CONFLICT (datetime_id) DO NOTHING
+-- ON CONFLICT (datetime_id) DO NOTHING
 """)
 
 
@@ -133,7 +133,7 @@ INSERT INTO offense_dim (
 	    offense_type
 )
 VALUES (%s,%s)
-ON CONFLICT (offense_id) DO NOTHING
+-- ON CONFLICT (offense_id) DO NOTHING
 """)
 
 
@@ -144,7 +144,7 @@ INSERT INTO police_beat_dim (
 	beat_name
 )
 VALUES (%s,%s)
-ON CONFLICT (police_beat_id) DO NOTHING
+-- ON CONFLICT (police_beat_id) DO NOTHING
 """)
 
 
@@ -154,7 +154,7 @@ INSERT INTO premise_dim (
 	premise_location
 )
 VALUES (%s,%s)
-ON CONFLICT (premise_id) DO NOTHING
+-- ON CONFLICT (premise_id) DO NOTHING
 """)
 
 

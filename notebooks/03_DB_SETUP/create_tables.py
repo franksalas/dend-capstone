@@ -8,22 +8,12 @@ db_user = os.environ.get('DB_USER')
 db_pass = os.environ.get('DB_PASS')
 db_port = os.environ.get('DB_PORT')
 
-# engine = psycopg2.connect(
-#     database="sparkifydb",
-#     user="frank",
-#     password="punkin99",
-#     host="sparkifyinstance.cx3dxtsihxox.us-west-2.rds.amazonaws.com",
-#     port='5432'
-# )
 
 def create_database():
     """
     - Creates and connects to the sparkifydb
     - Returns the connection and cursor to sparkifydb
     """
-    
-    # connect to default database
-    #conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     conn = psycopg2.connect(database=db_name,
     user=db_user,
     password=db_pass,
@@ -31,24 +21,8 @@ def create_database():
     port=db_port)
     conn.set_session(autocommit=True)
     cur = conn.cursor()
-    
-    # create sparkify database with UTF8 encoding
-    #cur.execute("DROP DATABASE IF EXISTS sparkifydb")
-    #cur.execute("CREATE DATABASE sparkifydb WITH ENCODING 'utf8' TEMPLATE template0")
+    #conn.close()    
 
-    # close connection to default database
-    conn.close()    
-    
-    # connect to sparkify database
-    #conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
-    conn = psycopg2.connect(database=db_name,
-    user=db_user,
-    password=db_pass,
-    host=db_host,
-    port=db_port)
-    conn.set_session(autocommit=True)
-    cur = conn.cursor()
-    
     return cur, conn
 
 
@@ -72,9 +46,9 @@ def create_tables(cur, conn):
 
 def main():
     """
-    - Drops (if exists) and Creates the sparkify database. 
+    - Drops (if exists) and Creates the  database. 
     
-    - Establishes connection with the sparkify database and gets
+    - Establishes connection with the database and gets
     cursor to it.  
     
     - Drops all the tables.  
