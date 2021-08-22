@@ -1,5 +1,46 @@
 
-# Data
+# Source Data
+
+## Crime Data
+
+- http://www.houstontx.gov/police/cs/crime-stats-archives.htm
+
+The crime dataset contains HPD Beat Crime Statistics crime data from the Houston police department and is part of the Uniform Crime Report program or UCR.
+It complies official data collected by law enforcement agencies
+across the United States. UCR criminal offenses are divided into two major groups: part I and
+part II.
+
+Part I offenses are considered to be serious and are broken into two categories: violent and
+property crimes; they include murder, rape, robbery, aggravated assault, burglary, theft, and
+auto theft.
+Part II offenses are all crime classifications other than those defined as Part I. some of those
+include: forgery, fraud, vandalism, prostitution, disorderly conduct.
+
+The crime data is a monthly breakdown of Part I crimes for which
+HPD wrote police reports. The data shows the number of reports for the following crimes:
+murder, rape, robbery, aggravated assault, burglary, theft, and auto theft.
+
+for the crime data, historical monthly data from 2009 to 2018 was used as data after 2018 the strucutre was drastically changed and not enough for the 1 millon rows requirement.
+
+
+### The original columns  were
+
+| column  | Description |
+|---|---|
+|date| Date of offense, include month/date/year   |
+|Hour| Approximate time when an event occurs, value form 0-24  |
+|Offense Type |Type I offense   |  |
+|Beat| The geographic area of the city broken down for patrol and statistical purpose  |
+| Premise |Identify the type of location where crime occurs (apartment complex, parking lot,
+etc.) |
+|Block Range|The value range of street     |
+|Street Name| Name of the street where the offense occurred |
+| Type |Street type, rd, Blvd
+|Suffix |N, S, E, W   |
+|Offenses| Times offense happen within the time frame     |
+
+## Weather Data
+
 
 Data sources
 - crime
