@@ -26,7 +26,7 @@ murder, rape, robbery, aggravated assault, burglary, theft, and auto theft.
 for the crime data, historical monthly data from 2009 to 2018 was used as data after 2018 the strucutre was drastically changed and not enough for the 1 millon rows requirement.
 
 
-### The original columns  were
+### Parameters
 
 | column  | Description |
 |---|---|
@@ -34,8 +34,7 @@ for the crime data, historical monthly data from 2009 to 2018 was used as data a
 |Hour| Approximate time when an event occurs, value form 0-24  |
 |Offense Type |Type I offense   |  |
 |Beat| The geographic area of the city broken down for patrol and statistical purpose  |
-| Premise |Identify the type of location where crime occurs (apartment complex, parking lot,
-etc.) |
+| Premise |Identify the type of location where crime occurs (apartment complex, parking lot.|
 |Block Range|The value range of street     |
 |Street Name| Name of the street where the offense occurred |
 | Type |Street type, rd, Blvd
@@ -48,7 +47,7 @@ etc.) |
 
 OpenWeatherMap is an online service that provides global weather data via API and historical weather data for any geographical location.
 
-History bulk data was purchased for $10 for hourly weather data for houston metropolitan area from 2009 to 2021. ([documentation](https://openweathermap.org/history-bulk))
+History bulk data was purchased for $10 for hourly weather data for houston metropolitan area from 2005 to 2021. ([documentation](https://openweathermap.org/history-bulk))
 
 ### Parameters
 
@@ -82,6 +81,10 @@ History bulk data was purchased for $10 for hourly weather data for houston metr
 - `dt` Time of data calculation, unix, UTC
 - `dt_isoDate` and time in UTC format
 - `timezone` Shift in seconds from UTC
+## Merging data
+The data was merge by combining `date_time` column between both datasets.
+
+
 
 ## Folder Structure
 
