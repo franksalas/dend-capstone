@@ -92,7 +92,7 @@ INSERT INTO crime_fact (
     police_beat_dim_id,
     premises_dim_id, 
     address_dim_id, 
-    datetime_dim_id 
+    datetime_id 
 )
 VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 -- ON CONFLICT (crime_fact_id) DO NOTHING

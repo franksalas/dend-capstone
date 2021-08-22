@@ -79,14 +79,18 @@ def combine_crime_data():
     df = clean_premise(df)
     strip_col(df,'premise_description')
     lower_col(df,'premise_description')
-    #df.premise_description = df.premise_description.str.replace('/', ' ').str.replace(',', ' ').str.replace('(', '').str.replace(')', '').str.strip()
+    print("DONE")
+    #df.premise_description = df.premise_description.str.replace('/', ' ').str.replace(',', ' ')
+     # drop nan offenses
+    df = df[df['offenses'].notna()]
+
     df['offenses'] = df['offenses'].astype('int64')
     df['hour'] = df['hour'].astype('int64')
     df['beat'] = df.beat.str.replace("'", " ")
     df.street_name = df.street_name.replace('NAN',np.nan)
     df.street_name.fillna('UNK',inplace=True)
-    strip_col('street_name')
-    capital_col('street_name')
+    strip_col(df,'street_name')
+    capital_col(df,'street_name')
     df.offense_type = df.offense_type.replace('AutoTheft','Auto Theft')
     df = df[~df.offense_type.str.contains('1')]
     df = df.reset_index(drop=True)
@@ -98,7 +102,9 @@ def combine_crime_data():
     df2 = df.loc[mask].reset_index(drop=True)
     
     # save data
+    # saving 
     file_name = f'crime-09-18.csv'
+    print(f"saving:{file_name}")
     path_to_save = f"s3://dend-data/capstone/final-data/crime-data/{file_name}"
     wr.s3.to_csv(df2, path_to_save, index=False)
 
@@ -126,23 +132,23 @@ def crime_weather_merge():
     file_name = f'crime-weather-final-09-18.csv'
     path_to_save = f"s3://dend-data/capstone/load-data/{file_name}"
     wr.s3.to_csv(df, path_to_save, index=False)
-
+    print(f"saving:{file_name}")
     # same sample for testing
     # 100 rows & 1k rows
     sample_1000 = df.sample(1000).reset_index(drop=True)
     file_name = f'crime-weather-sample-1000-09-18.csv'
     path_to_save = f"s3://dend-data/capstone/load-data/{file_name}"
     wr.s3.to_csv(sample_1000, path_to_save, index=False)
-
+    print(f"saving:{file_name}")
     sample_100 = df.sample(100).reset_index(drop=True)
     file_name = f'crime-weather-sample-100-09-18.csv'
     path_to_save = f"s3://dend-data/capstone/load-data/{file_name}"
     wr.s3.to_csv(sample_100, path_to_save, index=False)
-
+    print(f"saving:{file_name}")
 
 def main():
     # here we clean and load crime and weather data
-    #clean_crime_weather_data()
+    clean_crime_weather_data()
     # here we combine all the crime data into one dataframe
     # save it to s3
     combine_crime_data()
