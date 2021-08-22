@@ -337,7 +337,7 @@ def clean_weather(df):
 
 def clean_premise(df):
     # load premise dataset
-    raw_directory = os.path.join('..','..','data','raw','crime_data','premise_codes.csv')
+    raw_directory = os.path.join('data','raw','crime_data','premise_codes.csv')
     premise_df = pd.read_csv(raw_directory)
     premise_df.columns = premise_df.columns.str.strip().str.lower().str.replace('-', '_').str.replace(' ', '_')
     #  rename premise column for easy merge

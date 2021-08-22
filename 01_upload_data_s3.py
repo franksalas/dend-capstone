@@ -6,7 +6,7 @@ import glob
 import boto3
 import awswrangler as wr
 from botocore.exceptions import ClientError
-
+import time
 
 # helper functions
 
@@ -88,24 +88,28 @@ def upload_list_of_files_S3(file_list, bucket_name,subfolder_path):
 
 
 
-def main():
-    # upload data 
+def main(bucket_name):
+    # upload crime data for given years 
     years = [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018]
     for i in years:
         print(f'uploading:{i}')
-        bucket_name = 'dend-data'
         bucket_subfolders = f'capstone/raw-data/crime-data/{i}'
-        path = f'../../data/raw/crime_data/{i}/csv'
+        path = f'data/raw/crime_data/{i}/csv'
         file_list = list_files(path)
         upload_list_of_files_S3(file_list,bucket_name, bucket_subfolders)
 
     # upload weather data
     print(f'uploading:weather data')
     bucket_subfolders = 'capstone/raw-data/weather-data'
-    path = '../../data/raw/weather_data'
+    path = 'data/raw/weather_data'
     file_list = list_files(path)
     upload_list_of_files_S3(file_list,bucket_name, bucket_subfolders)
 
 
 if __name__ == "__main__":
-    main()
+    start_time = time.time()
+    # name of your bucket to upload data
+    bucket_name = "dend-data"
+    print(f"bucket-name:{bucket_name}")
+    main(bucket_name)
+    print("--- %s seconds ---" % (time.time() - start_time))

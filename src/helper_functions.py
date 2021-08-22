@@ -3,8 +3,7 @@ import glob
 import psycopg2
 import pandas as pd
 import numpy as np
-from sql_queries import *
-from helper_functions import *
+from .sql_queries import *
 # AWS
 import boto3
 import awswrangler as wr
