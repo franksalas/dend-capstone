@@ -1,7 +1,10 @@
 
 # Source Data
+![](https://i.imgur.com/UhrxItW.png)
+
 
 ## Crime Data
+
 
 - http://www.houstontx.gov/police/cs/crime-stats-archives.htm
 
@@ -40,11 +43,45 @@ etc.) |
 |Offenses| Times offense happen within the time frame     |
 
 ## Weather Data
+- https://home.openweathermap.org/marketplace
 
 
-Data sources
-- crime
-- oepn weather
+OpenWeatherMap is an online service that provides global weather data via API and historical weather data for any geographical location.
+
+History bulk data was purchased for $10 for hourly weather data for houston metropolitan area from 2009 to 2021. ([documentation](https://openweathermap.org/history-bulk))
+
+### Parameters
+
+- `city_name`: City name
+- `lat` : Geographical coordinates of the location (latitude)
+- `lon` : Geographical coordinates of the location (longitude)
+- `main`
+  - `main.temp` Temperature
+  - `main.feels_like` This temperature parameter accounts for the human perception of weather
+  - `main.pressure` Atmospheric pressure (on the sea level), hPa
+  - `main.humidity` Humidity, %
+  - `main.temp_min` Minimum temperature at the moment. This is deviation from temperature that is possible for large cities and megalopolises geographically expanded (use these parameter optionally).
+  - `main.temp_max` Maximum temperature at the moment. This is deviation from temperature that is possible for large cities and megalopolises geographically expanded (use these parameter optionally).
+
+- `wind`
+  - `wind.speed` Wind speed. Unit Default: meter/sec
+  - `wind.deg` Wind direction, degrees (meteorological)
+- `clouds`
+  - `clouds.all` Cloudiness, %
+- `rain`
+  - `rain.1h` Rain volume for the last hour, mm
+  - `rain.3h` Rain volume for the last 3 hours, mm
+- `snow`
+  - `snow.1h` Snow volume for the last hour, mm (in liquid state)
+  - `snow.3h` Snow volume for the last 3 hours, mm (in liquid state)
+- `weather`
+  - `weather.id` Weather condition id
+  - `weather.main` Group of weather parameters (Rain, Snow, Extreme etc.)
+  - `weather.description` Weather condition within the group
+  - `weather.icon` Weather icon id
+- `dt` Time of data calculation, unix, UTC
+- `dt_isoDate` and time in UTC format
+- `timezone` Shift in seconds from UTC
 
 ## Folder Structure
 
