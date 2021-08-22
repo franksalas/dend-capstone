@@ -1,4 +1,4 @@
-from src.clean_helper_functions import *
+from helper_functions.data_clean_helper import *
 import time
 
 # clean data

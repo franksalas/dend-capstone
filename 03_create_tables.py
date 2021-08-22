@@ -1,6 +1,6 @@
 import psycopg2
 import os
-from src.sql_queries import create_table_queries, drop_table_queries
+from helper_functions.sql_queries import create_table_queries, drop_table_queries
 # load secret keys
 db_host = os.environ.get('DB_HOST')
 db_name = os.environ.get('DB_NAME')

@@ -3,8 +3,8 @@ import glob
 import psycopg2
 import pandas as pd
 import numpy as np
-from src.sql_queries import *
-from src.helper_functions import *
+from helper_functions.sql_queries import *
+from helper_functions.data_model_helper import *
 import time
 # AWS
 import boto3
