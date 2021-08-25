@@ -1,11 +1,11 @@
 # DROP TABLES
 
 crime_fact_table_drop = "DROP TABLE IF EXISTS crime_fact"
-address_table_drop     = "DROP TABLE IF EXISTS address_dim"
-date_time_table_drop     = "DROP TABLE IF EXISTS datetime_dim"
-offense_table_drop   = "DROP TABLE IF EXISTS offense_dim"
-police_beat_table_drop     = "DROP TABLE IF EXISTS police_beat_dim"
-premise_table_drop     = "DROP TABLE IF EXISTS premise_dim"
+address_table_drop = "DROP TABLE IF EXISTS address_dim"
+date_time_table_drop = "DROP TABLE IF EXISTS datetime_dim"
+offense_table_drop = "DROP TABLE IF EXISTS offense_dim"
+police_beat_table_drop = "DROP TABLE IF EXISTS police_beat_dim"
+premise_table_drop = "DROP TABLE IF EXISTS premise_dim"
 
 # CREATE TABLES
 
@@ -126,7 +126,6 @@ VALUES (%s,%s, %s, %s, %s, %s, %s, %s)
 """)
 
 
-
 offense_table_insert = ("""
 INSERT INTO offense_dim (
 	    offense_id,
@@ -135,7 +134,6 @@ INSERT INTO offense_dim (
 VALUES (%s,%s)
 -- ON CONFLICT (offense_id) DO NOTHING
 """)
-
 
 
 police_beat_table_insert = ("""
@@ -158,10 +156,9 @@ VALUES (%s,%s)
 """)
 
 
-
-
-
 # QUERY LISTS
 
-create_table_queries = [crime_fact_table_create, address_table_create, datetime_table_create, offense_table_create, policebeat_table_create,premise_table_create]
-drop_table_queries = [crime_fact_table_drop, address_table_drop, date_time_table_drop, offense_table_drop, police_beat_table_drop,premise_table_drop]
+create_table_queries = [crime_fact_table_create, address_table_create,
+                        datetime_table_create, offense_table_create, policebeat_table_create, premise_table_create]
+drop_table_queries = [crime_fact_table_drop, address_table_drop, date_time_table_drop,
+                      offense_table_drop, police_beat_table_drop, premise_table_drop]

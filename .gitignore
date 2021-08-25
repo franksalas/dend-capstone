@@ -258,3 +258,6 @@ data/final
 data/interim
 data/raw
 !data/raw_data/readme.md
+helper_functions/.ipynb_checkpoints
+helper_functions/cap_config.cfg
+src/__pycache__

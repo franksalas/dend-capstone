@@ -2,11 +2,7 @@ import psycopg2
 import os
 from helper_functions.sql_queries import create_table_queries, drop_table_queries
 # load secret keys
-db_host = os.environ.get('DB_HOST')
-db_name = os.environ.get('DB_NAME')
-db_user = os.environ.get('DB_USER')
-db_pass = os.environ.get('DB_PASS')
-db_port = os.environ.get('DB_PORT')
+from helper_functions.config_loader import *
 
 
 def create_database():
@@ -15,13 +11,13 @@ def create_database():
     - Returns the connection and cursor to sparkifydb
     """
     conn = psycopg2.connect(database=db_name,
-    user=db_user,
-    password=db_pass,
-    host=db_host,
-    port=db_port)
+                            user=db_user,
+                            password=db_pass,
+                            host=db_host,
+                            port=db_port)
     conn.set_session(autocommit=True)
     cur = conn.cursor()
-    #conn.close()    
+    # conn.close()
 
     return cur, conn
 
@@ -47,18 +43,18 @@ def create_tables(cur, conn):
 def main():
     """
     - Drops (if exists) and Creates the  database. 
-    
+
     - Establishes connection with the database and gets
     cursor to it.  
-    
+
     - Drops all the tables.  
-    
+
     - Creates all tables needed. 
-    
+
     - Finally, closes the connection. 
     """
     cur, conn = create_database()
-    
+
     drop_tables(cur, conn)
     create_tables(cur, conn)
 
