@@ -1,17 +1,62 @@
-import os
-import glob
 import psycopg2
 import pandas as pd
 import numpy as np
 from .sql_queries import *
-
-
-# AWS
-import boto3
+import sys
 import awswrangler as wr
 
 # import config values
+sys.path.append('../')  # helps swith importing of config_loader
 from config_loader import *
+
+
+def create_database():
+    """
+    - Creates and connects to the sparkifydb
+    - Returns the connection and cursor to sparkifydb
+    """
+    conn = psycopg2.connect(database=db_name,
+                            user=db_user,
+                            password=db_pass,
+                            host=db_host,
+                            port=db_port)
+    conn.set_session(autocommit=True)
+    cur = conn.cursor()
+    # conn.close()
+
+    return cur, conn
+
+
+def drop_tables(cur, conn):
+    """
+    Drops each table using the queries in `drop_table_queries` list.
+    """
+    for query in drop_table_queries:
+        cur.execute(query)
+        conn.commit()
+
+
+def create_tables(cur, conn):
+    """
+    Creates each table using the queries in `create_table_queries` list. 
+    """
+    for query in create_table_queries:
+        cur.execute(query)
+        conn.commit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

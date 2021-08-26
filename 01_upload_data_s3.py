@@ -1,11 +1,5 @@
-import pandas as pd
-import numpy as np
-import sys
-import os
-import re
 import glob
 import boto3
-import awswrangler as wr
 from botocore.exceptions import ClientError
 import time
 
@@ -114,7 +108,7 @@ def main(bucket_name):
 if __name__ == "__main__":
     start_time = time.time()
     # name of your bucket to upload data
-    bucket_name = "dend-data"
+    bucket_name = "salas-data"
     print(f"bucket-name:{bucket_name}")
     main(bucket_name)
     print("--- %s seconds ---" % (time.time() - start_time))

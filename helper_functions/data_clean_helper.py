@@ -1,15 +1,5 @@
-# Loaded Libraries
-# -------------------
 import pandas as pd
-import numpy as np
-import sys
 import os
-import re
-import glob
-import pickle
-
-# AWS
-import boto3
 import awswrangler as wr
 
 
@@ -397,19 +387,19 @@ def clean_premise(df):
     return df
 
 
-def save_to_S3_c(df, year):
+def save_to_S3_c(bucket_name,df, year):
     '''save crme data to S3'''
     print(f'saving crime data: {year}')
     file_name = f'crime_{year}.csv'
-    path_to_save = f"s3://dend-data/capstone/inter-data/crime-data/{file_name}"
+    path_to_save = f"s3://{bucket_name}/capstone/inter-data/crime-data/{file_name}"
     wr.s3.to_csv(df, path_to_save, index=False)
 
 
-def save_to_S3_w(df):
+def save_to_S3_w(bucket_name,df):
     '''save weather data to S3'''
     print('saving weather data')
     file_name = f'weather-09-18.csv'
-    path_to_save = f"s3://dend-data/capstone/inter-data/weather-data/{file_name}"
+    path_to_save = f"s3://{bucket_name}/capstone/inter-data/weather-data/{file_name}"
     wr.s3.to_csv(df, path_to_save, index=False)
 
 

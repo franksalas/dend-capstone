@@ -1,9 +1,8 @@
 import psycopg2
-import os
 from helper_functions.sql_queries import create_table_queries, drop_table_queries
 # load secret keys
-from helper_functions.config_loader import *
 
+from config_loader import *
 
 def create_database():
     """

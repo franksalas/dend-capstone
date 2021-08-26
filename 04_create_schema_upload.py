@@ -1,21 +1,10 @@
-import os
-import glob
-import psycopg2
 import pandas as pd
-import numpy as np
 from helper_functions.sql_queries import *
 from helper_functions.data_model_helper import *
-import time
-# AWS
-import boto3
-import awswrangler as wr
-
 # load secret keys
-db_host = os.environ.get('DB_HOST')
-db_name = os.environ.get('DB_NAME')
-db_user = os.environ.get('DB_USER')
-db_pass = os.environ.get('DB_PASS')
-db_port = os.environ.get('DB_PORT')
+
+from config_loader import *
+import time
 
 
 def main():

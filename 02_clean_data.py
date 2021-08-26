@@ -9,66 +9,66 @@ def clean_crime_weather_data(bucket_name):
     raw = bucket_raw_path(bucket_name, 'capstone/raw-data/crime-data/2009')
     d09 = s3_files_to_df(raw)
     df09 = clean_2009(d09)
-    save_to_S3_c(df09, '2009')
+    save_to_S3_c(bucket_name,df09, '2009')
 
     # 2010
     raw = bucket_raw_path(bucket_name, 'capstone/raw-data/crime-data/2010')
     c10 = s3_files_to_df(raw)
     df10 = clean_2010(c10)
-    save_to_S3_c(df10, '2010')
+    save_to_S3_c(bucket_name,df10, '2010')
     # 2011
     raw = bucket_raw_path(bucket_name, 'capstone/raw-data/crime-data/2011')
     d11 = s3_files_to_df(raw)
     df11 = clean_2011(d11)
-    save_to_S3_c(df11, '2011')
+    save_to_S3_c(bucket_name,df11, '2011')
 
     # 2012
     raw = bucket_raw_path(bucket_name, f'capstone/raw-data/crime-data/2012')
     d12 = s3_files_to_df(raw)
     df12 = clean_2012(d12)
-    save_to_S3_c(df12, '2012')
+    save_to_S3_c(bucket_name,df12, '2012')
 
     # 2013
     raw = bucket_raw_path(bucket_name, 'capstone/raw-data/crime-data/2013')
     d13 = s3_files_to_df(raw)
     df13 = clean_2013(d13)
-    save_to_S3_c(df13, '2013')
+    save_to_S3_c(bucket_name,df13, '2013')
 
     # 2014
     raw = bucket_raw_path(bucket_name, f'capstone/raw-data/crime-data/2014')
     d14 = s3_files_to_df_2014(raw)
     df14 = clean_2014(d14)
-    save_to_S3_c(df14, '2014')
+    save_to_S3_c(bucket_name,df14, '2014')
 
     # 2015
     raw = bucket_raw_path(bucket_name, f'capstone/raw-data/crime-data/2015')
     d15 = s3_files_to_df(raw)
     df15 = clean_2015(d15)
-    save_to_S3_c(df15, '2015')
+    save_to_S3_c(bucket_name,df15, '2015')
 
     # 2016
     raw = bucket_raw_path(bucket_name, f'capstone/raw-data/crime-data/2016')
     d16 = s3_files_to_df(raw)
     df16 = clean_2016(d16)
-    save_to_S3_c(df16, '2016')
+    save_to_S3_c(bucket_name,df16, '2016')
 
     # 2017
     raw = bucket_raw_path(bucket_name, f'capstone/raw-data/crime-data/2017')
     d17 = s3_files_to_df(raw)
     df17 = clean_2017(d17)
-    save_to_S3_c(df17, '2017')
+    save_to_S3_c(bucket_name,df17, '2017')
 
     # 2018
     raw = bucket_raw_path(bucket_name, f'capstone/raw-data/crime-data/2018')
     d18 = s3_files_to_df(raw)
     df18 = clean_2018(d18)
-    save_to_S3_c(df18, '2018')
+    save_to_S3_c(bucket_name,df18, '2018')
 
     # weather data
     raw = bucket_raw_path(bucket_name, f'capstone/raw-data/weather-data/')
     dfw = wr.s3.read_csv(wr.s3.list_objects(raw)[0])
     dfweather = clean_weather(dfw)
-    save_to_S3_w(dfweather)
+    save_to_S3_w(bucket_name,dfweather)
 
 
 def combine_crime_data(bucket_name):
@@ -162,6 +162,6 @@ def main(bucket_name):
 
 if __name__ == "__main__":
     start_time = time.time()
-    bucket_name = "dend-data"
+    bucket_name = "salas-data"
     main(bucket_name)
     print("--- %s seconds ---" % (time.time() - start_time))

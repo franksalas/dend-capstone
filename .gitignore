@@ -261,3 +261,4 @@ data/raw
 helper_functions/.ipynb_checkpoints
 helper_functions/cap_config.cfg
 src/__pycache__
+cap_config.cfg

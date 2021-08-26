@@ -1,11 +1,13 @@
 import configparser
-
+import os
 config = configparser.ConfigParser()
 
-# get aws keys from config file
-config.read_file(open('cap_config.cfg'))  # config file
+abs_pathname = os.path.abspath("cap_config.cfg")
+config.read_file(open(abs_pathname))  # config file
+#abs_pathname = os.path.abspath("cap_config.cfg")
+#config.read_file(open('cap_config.cfg'))  # config file
 
-
+# global variables used
 db_host = config['REDSHIFT']['DB_HOST']
 db_name = config['REDSHIFT']['DB_NAME']
 db_user = config['REDSHIFT']['DB_USER']

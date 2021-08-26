@@ -1,4 +1,5 @@
-# crime weather data
+# Crime & Weather Data ETL Pipeline on AWS
+
 
 - Created by Francisco Salas
 - version: 0.1.0
@@ -16,16 +17,9 @@ conda env create -f environments/base_environment.yml
 ## Activate environment
 
 ```bash
-conda activate crdata
+conda activate capstone
 ```
 
-## Update environment
-
-```bash
-$ conda env update --prefix ./env --file environment.yml  --prune
-
-pip freeze > requirements.txt
-```
 ## Folder Structure
 ```
 .
