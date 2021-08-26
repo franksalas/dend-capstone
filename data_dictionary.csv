@@ -1,0 +1,34 @@
+﻿table_name,column_name,data_type,description,requierd
+crime_fact,crime_fact_id,int,primary key for table,yes
+,num_offenses,int,number of offenses given the date& time,yes
+,temp,int,temperature  in celcius given date &time,yes
+,feels_like,int,the temperature from a human perception of weather,yes
+,humidity,int,the humidity of given the date & time,yes
+,rain,int,rain volume for the las hour in mm,yes
+,snow,int,snow volume for the last hour in mm (in liquid state),yes
+,offense_dim_id,int,foreign key,yes
+,police_beat_dim_id,int,foreign key,yes
+,premises_dim_id,int,foreign key,yes
+,address_dim_id,int,foreign key,yes
+,datetime_id,int,foreign key,yes
+,,,,yes
+address_dim,address_id,int,primary key,yes
+,full_address,varchar,full addres of where the crime was commited,yes
+,,,,yes
+datetime_dim,datetime_id,int,primary key,yes
+,date_time,datetime,date & time of crime commited,yes
+,hour,int,hour value from date time data,yes
+,day,int,day from the date time data,yes
+,week,int,number of the week from the date time data( out of 52,yes
+,month,int,month number from the date time data,yes
+,year,int,year value from the date time data,yes
+,weekday,int,weekday value from the date time data,yes
+,,,,yes
+offense_dim,offense_id,int,primary key,yes
+,offense_type,varchar,"type 1 offense [murder,rape, robbery, aggravated assult, burglary, theft, auto theft]",yes
+,,,,yes
+police_beat_dim,police_beat_id,int,primary key,yes
+,beat_name,varchar,name of the police beat ex '11H30',yes
+,,,,yes
+premise_dim,premise_id,int,primary key,yes
+,premise_location,varchar,"Identify the type of location where crime occurs (apartment complex, parking lot.",yes
