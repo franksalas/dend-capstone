@@ -9,11 +9,15 @@
 ## Description
 A short description of the project
 
-## Setup environment
-Create enviroment from file
+
+
+---
+# Enviroment
+## Create enviroment from file
 ```bash
-conda env create -f environments/base_environment.yml
+conda env create -f environment.yml
 ```
+
 ## Activate environment
 
 ```bash
@@ -23,20 +27,22 @@ conda activate capstone
 ## Folder Structure
 ```
 .
+├── 01_upload_data_s3.py
+├── 02_clean_data.py
+├── 03_create_tables.py
+├── 04_create_schema_upload.py
+├── config.cfg
+├── config_loader.py
 ├── data
-│   ├── final
-│   ├── interim
-│   └── raw
-├── environments
-│   ├── base_environment.yml
-│   └── README.md
-├── notebooks
-│   └── EXAMPLES.ipynb
-├── notes
-├── README.md
-├── report
-│   └── graphs
-└── src
-    └── start.py
-
+│   ├── raw
+│   └── readme.md
+├── environment.yml
+├── .gitignore
+├── helper_functions
+│   ├── data_clean_helper.py
+│   ├── data_model_helper.py
+│   ├── __init__.py
+│   ├── readme.md
+│   └── sql_queries.py
+└── README.md
 ```
