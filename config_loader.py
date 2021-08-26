@@ -4,8 +4,7 @@ config = configparser.ConfigParser()
 
 abs_pathname = os.path.abspath("cap_config.cfg")
 config.read_file(open(abs_pathname))  # config file
-#abs_pathname = os.path.abspath("cap_config.cfg")
-#config.read_file(open('cap_config.cfg'))  # config file
+
 
 # global variables used
 db_host = config['REDSHIFT']['DB_HOST']
