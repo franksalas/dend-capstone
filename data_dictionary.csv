@@ -1,4 +1,4 @@
-﻿table_name,column_name,data_type,description,requierd
+﻿table_name,column_name,data_type,description,required
 crime_fact,crime_fact_id,int,primary key for table,yes
 ,num_offenses,int,number of offenses given the date& time,yes
 ,temp,int,temperature  in celcius given date &time,yes
