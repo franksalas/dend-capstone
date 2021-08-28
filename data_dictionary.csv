@@ -1,7 +1,7 @@
 ﻿table_name,column_name,data_type,description,required
 crime_fact,crime_fact_id,int,primary key for table,yes
 ,num_offenses,int,number of offenses given the date& time,yes
-,temp,int,temperature  in celcius given date &time,yes
+,temp,int,temperature  in fahrenheit given date &time,yes
 ,feels_like,int,the temperature from a human perception of weather,yes
 ,humidity,int,the humidity of given the date & time,yes
 ,rain,int,rain volume for the las hour in mm,yes
@@ -31,4 +31,4 @@ police_beat_dim,police_beat_id,int,primary key,yes
 ,beat_name,varchar,name of the police beat ex '11H30',yes
 ,,,,yes
 premise_dim,premise_id,int,primary key,yes
-,premise_location,varchar,"Identify the type of location where crime occurs (apartment complex, parking lot.",yes
+,premise_location,varchar,"Identify the type of location where crime occurs (apartment complex, parking lot.)",yes

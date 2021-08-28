@@ -60,7 +60,7 @@ CREATE TABLE offense_dim (
 policebeat_table_create = ("""
 CREATE TABLE police_beat_dim (
     police_beat_id int  NOT NULL,
-    beat_name varchar(5)  NOT NULL,
+    beat_name varchar(10)  NOT NULL,
     CONSTRAINT police_beat_pk PRIMARY KEY (police_beat_id)
 );""")
 

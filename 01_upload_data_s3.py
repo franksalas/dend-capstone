@@ -4,8 +4,6 @@ from botocore.exceptions import ClientError
 import time
 
 # helper functions
-
-
 def upload_file(file_name, bucket, object_name=None):
     """Upload a file to an S3 bucket
 
@@ -27,7 +25,6 @@ def upload_file(file_name, bucket, object_name=None):
         logging.error(e)
         return False
     return True
-
 
 def create_bucket(bucket_name, region=None):
     """Create an S3 bucket in a specified region

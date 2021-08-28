@@ -4,6 +4,7 @@ from helper_functions.sql_queries import create_table_queries, drop_table_querie
 
 from config_loader import *
 
+# functions borrowed from lecture & labs :)
 def create_database():
     """
     - Creates and connects to the sparkifydb

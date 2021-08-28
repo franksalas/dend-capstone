@@ -10,57 +10,6 @@ sys.path.append('../')  # helps swith importing of config_loader
 from config_loader import *
 
 
-def create_database():
-    """
-    - Creates and connects to the sparkifydb
-    - Returns the connection and cursor to sparkifydb
-    """
-    conn = psycopg2.connect(database=db_name,
-                            user=db_user,
-                            password=db_pass,
-                            host=db_host,
-                            port=db_port)
-    conn.set_session(autocommit=True)
-    cur = conn.cursor()
-    # conn.close()
-
-    return cur, conn
-
-
-def drop_tables(cur, conn):
-    """
-    Drops each table using the queries in `drop_table_queries` list.
-    """
-    for query in drop_table_queries:
-        cur.execute(query)
-        conn.commit()
-
-
-def create_tables(cur, conn):
-    """
-    Creates each table using the queries in `create_table_queries` list. 
-    """
-    for query in create_table_queries:
-        cur.execute(query)
-        conn.commit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def block_range_split(df):
     '''split blockrange col values
     then give median value as a string'''
@@ -98,7 +47,7 @@ def bucket_raw_path(bucket_name, path_dir):
 def load_data(raw_s3):
     # depends what file you are uploading
     # depends what file you are uploading(0,1MIL,1,100 RECORDS,1, 2,1K,)
-    file = wr.s3.list_objects(raw_s3)[1]
+    file = wr.s3.list_objects(raw_s3)[0]
     print(f'loading file:\n{file}')
     return wr.s3.read_csv(file)
 

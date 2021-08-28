@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import awswrangler as wr
-
+import numpy as np
 
 # Helper functions
 

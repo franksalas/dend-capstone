@@ -1,9 +1,8 @@
 from helper_functions.data_clean_helper import *
 import time
+import numpy as np
 
 # clean data
-
-
 def clean_crime_weather_data(bucket_name):
     # 2009
     raw = bucket_raw_path(bucket_name, 'capstone/raw-data/crime-data/2009')
@@ -72,6 +71,10 @@ def clean_crime_weather_data(bucket_name):
 
 
 def combine_crime_data(bucket_name):
+    """ yearly crime data is extracted from S3 & combined to create
+    a large dataframe.
+    some cleanup is done & saved back to S3
+    """
     # combine crime data
     print("combining crime data..")
     raw = bucket_raw_path(bucket_name, 'capstone/inter-data/crime-data/')
@@ -82,7 +85,6 @@ def combine_crime_data(bucket_name):
     strip_col(df, 'premise_description')
     lower_col(df, 'premise_description')
     print("DONE")
-    #df.premise_description = df.premise_description.str.replace('/', ' ').str.replace(',', ' ')
     # drop nan offenses
     df = df[df['offenses'].notna()]
 
@@ -104,7 +106,6 @@ def combine_crime_data(bucket_name):
     df2 = df.loc[mask].reset_index(drop=True)
 
     # save data
-    # saving
     file_name = f'crime-09-18.csv'
     print(f"saving:{file_name}")
     path_to_save = f"s3://{bucket_name}/capstone/final-data/crime-data/{file_name}"
@@ -112,6 +113,10 @@ def combine_crime_data(bucket_name):
 
 
 def crime_weather_merge(bucket_name):
+    """ crime & weather data is extracted fromm S3,
+    merged by familiar col (date_time)
+    saved back to S3
+    """
     print("merging crime & weather data.. col:date_time")
     raw = bucket_raw_path(bucket_name, f'capstone/final-data/crime-data/')
     df_crime = s3_CSV_files_to_df(raw)

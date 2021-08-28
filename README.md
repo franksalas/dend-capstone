@@ -1,6 +1,8 @@
 
 # Data Engineering Capstone Project
 
+![](https://i.imgur.com/TRjFhKt.png)
+
 
 # Scope the Project and Gather Data
 
@@ -11,7 +13,8 @@ This project will combine crime data from 10 years and hourly weather data to cr
 
 ## Crime data
 - this data comes from [Houston Police Department crime statistics](http://www.houstontx.gov/police/cs/crime-stats-archives.htm)
-- consist of 120 monthly `.xls` files from June 2009 to May 2018
+- consist of 120 monthly `.xlsx` files from June 2009 to May 2018 
+- it contains > 1 million rows of data.
 - data before June 2009 is sparse & data after May 2018 is changed drastically.
 - the data needed **heavy** cleaning, custom functions for each year created in `data_clean_helper.py`
   
@@ -41,7 +44,7 @@ This project will combine crime data from 10 years and hourly weather data to cr
 - it includes hourly results for the city.
 - data was chosen by matching city; in this case, the `Houston metropolitan area` was used.
 - minimal cleaning was done with this dataset, values were converted from Kelvin to Fahrenheit, and the range was chosen from the matching date range of the crime data.
-- - `temp,` `feels_like,` `humidity,` `rain,` `snow,` and `date time` columns were used from this dataset.
+-  `temp,` `feels_like,` `humidity,` `rain,` `snow,` and `date time` columns were used from this dataset.
 
 ### Parameters
 - `city_name`: City name
@@ -81,9 +84,45 @@ This project will combine crime data from 10 years and hourly weather data to cr
 |----------|-----------------------------|--------|---------|---------|----------|------|----------|--------|--------|--------|----------|--------|-------|-------|
 |1104537600|2005-01-01 00:00:00 +0000 UTC|-21600  |Houston  |29.760427|-95.369803|293.66|294.09    |292.16  |293.78  |89      |3.1       |100     |       |       |
 
-For furder data explination, please see [data folder](https://github.com/franksalas/dend-capstone/tree/main/data).
+For further data explination, please see [data folder](https://github.com/franksalas/dend-capstone/tree/main/data).
 
 # Define the Data Model
+## Fact table
+- **crime_fact**
+  - *crime_fact_id*: primary key for table
+  - *numoffenses*: number of offenses given the date &time
+  - *temp*: temperature in fahrenheit given the date & time
+  - *feels_like* the temperature from a human perception of weather, in fahrenheit
+  - *humidity*: percentage of the humidity of given date & time
+  - *rain*: rain volume for the last hour in mm
+  - *snow*: show volume for the last hour in mm (in liquid state)
+  - *offense_dim_id*: foreign key from offense_dim table
+  - *police_beat_dim_id*: foreign key from police_beat_dim table
+  - *premise_dim_id*: foreign key from premise_dim table
+  - *address_dim_id*: foreign key from address_dim table
+  - *datetime_dim_id*: foreign key from datetime_dim table
+## Dimension Tables
+- **premise_dim**
+  - *premise_id*:primary key for table
+  - *premise_location*: Identify the type of location where crime occurs (apartment complex, parking lot.)
+- **offense_dim**
+  - *offense_id*: primary key for table
+  - *offense_type*: type 1 offense [murder,rape, robbery, aggravated assult, burglary, theft, auto theft]
+- **address_dim**
+  - *address_id*: primary key for table
+  - *full_address*: full addres of where the crime was commited
+- **police_beat_dim**
+  - *police_beat_id*: primary key for table
+  - *beat_name*: name of the police beat ex '11H30'
+- **date_time_dim**
+  - *date_time_id*: primary key for table
+  - *date_time*: date & time of crime commited
+  - *hour*: hour value from date time data
+  - *day*: day from the date time data
+  - *week*: number of the week from the date time data( out of 52)
+  - *month*: month number from the date time data
+  - *year*: year value from the date time data
+  - *weekday*: weekday value from the date time data
 
 ![](https://i.imgur.com/Vf1fiTw.png)
 
@@ -132,11 +171,11 @@ def drop_add_pk(data, data_table, lo, ro):
 
 
 # Run ETL to Model the Data
-Here we go step by step in creating our pipeline from scattering flat files to Redshift.
+Here are the steps in creating our pipeline from scattering flat files to Redshift.
 
 ## Step 1: `01_upload_data_S3.py`
 
-Data was uploaded to S3 buckets in a collection of CSV JSON & Xls files. 
+Data was uploaded to S3 buckets in a collection of CSV JSON & xlsx files. 
 - the bucket structure was as follows
 
 ```
@@ -147,13 +186,13 @@ bucket-name
          final-data/
          load-data/
 ```
-- The crime dataset was around 120 monthly `.xls` files that were uploaded first to an S3 bucket under:  `capstone/raw-data/crime-data/year/month` and weather data that was converted from `JSON and saved under: `capstone/raw-data/weather-data/filename`.
+- The crime dataset was around 120 monthly `.xlsx` files that were uploaded first to an S3 bucket under:  `capstone/raw-data/crime-data/year/month` and weather data that was converted from `JSON` and saved under: `capstone/raw-data/weather-data/filename`.
 
 
 
 ## Step 2: `02_clean_data.py`
-- in this process, we **heavily** clean the crime datasets.
-- by importing `data_cleaning_helper.py` it contains  25 custom functions to combine and clean crime data by given year since they vary soo much.
+- in this process , the crime datasets were **heavily** clean.
+- by importing `data_cleaning_helper.py`, it contains  25 custom functions to combine and clean crime data by given year since they vary soo much.
 - crime data is combined by year, and a few unused columns are dropped and saved under: `capstone/iterm-data/crime-data/crime_20xx.csv`. 
 - The weather data is minimized by dropping any duplicate columns
   - converting values from kelvin to Fahrenheit
@@ -199,6 +238,7 @@ bucket-name
 ├── 04_create_schema_upload.py
 ├── config.cfg
 ├── config_loader.py
+├── data_explore.ipynb
 ├── data
 │   ├── raw
 │   └── readme.md
