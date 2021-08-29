@@ -9,6 +9,19 @@
 The purpose of this project is to demonstrate various skills associated with data engineering. In particular, developing ETL pipeline, constructing a data warehouse through Redshift database, and working with data transfers from/to S3.
 This project will combine crime data from 10 years and hourly weather data to create a Redshift data warehouse for future analysis or a back-end data source.
 
+The problem with crime data is that it's not always available, or if the data is available, it is not clean or accessible, and if it is, it is behind a paywall. 
+This project would allow the user to extract crime data easily by doing simple SQL queries.
+
+## Tools & technologies used
+- for storage, Simple storage service `S3` was used, and `Redshift` was used as a data warehouse.
+- `python` was used as the primary language
+- `jupyter lab` & `vscode` was used as text editors.
+- `boto3` was used to upload data to S3
+- `awswrangler` was used to interact with S3 buckets & Redshift
+- `psycopg2` was used as a database adapter for python
+- `pandas` & `numpy` were used to shape and modify the data.
+- `seaborn` was used as a data visualizer.
+
 # Explore and Assess the Data
 
 ## Crime data
@@ -169,7 +182,6 @@ def drop_add_pk(data, data_table, lo, ro):
 ```
 
 
-
 # Run ETL to Model the Data
 Here are the steps in creating our pipeline from scattering flat files to Redshift.
 
@@ -214,6 +226,75 @@ bucket-name
 - here, we split off columns from the large dataframe to create dim tables and matching foreign keys to the main(fact) table.
 - then, each table is uploaded to Redshift
 
+## Step 5: `05_quality_check.py`
+- connects to redshift and check if tables were uploaded correclty
+- checks for total rows of each table
+- gives sample of each table
+
+
+# Sample results
+- *some* tables were loaded and converted to dataframe
+
+## Get table names
+```sql
+SELECT 
+    table_name
+FROM 
+    information_schema.tables
+WHERE 
+    table_type='BASE TABLE'
+AND 
+    table_schema='public';
+
+---
+(['offense_dim'],
+ ['police_beat_dim'],
+ ['premise_dim'],
+ ['address_dim'],
+ ['datetime_dim'],
+ ['crime_fact'])
+```
+
+ ## cout rows in `crime_fact` table
+ ```sql
+SELECT 
+    COUNT(crime_fact_id)
+FROM
+    crime_fact
+---
+([1125101],)
+ ```
+## Join Tables
+- tables used
+  -  `crime_fact`
+  -  `datetime_dim` 
+  -   `offense_dim`
+- get temperature, month , year and offense type
+- create a dataframe 
+```python
+query = """
+SELECT 
+     dd.date_time,dd.month,dd.year, cf.temp, od.offense_type
+FROM 
+    crime_fact as cf
+INNER JOIN
+    datetime_dim as dd
+ON
+    cf.datetime_id = dd.datetime_id
+INNER JOIN
+    offense_dim as od
+ON
+    cf.offense_dim_id = od.offense_id
+"""
+
+# 05_quality_check.py functions
+query_data = data = get_data_redshift(query)
+df = create_df(["datetime","month","year","temp","offense_type"],query_data)
+
+```
+![](https://i.imgur.com/vb5Oj3G.png)
+
+
 # Complete Project Write Up
 - The goal of this project is to showcase some of the tools learned in the data engineering course.
 - in the future, airflow can be used to automate future monthly crime data by creating a dag that cleans and uploads the data.
@@ -236,6 +317,7 @@ bucket-name
 ├── 02_clean_data.py
 ├── 03_create_tables.py
 ├── 04_create_schema_upload.py
+├── 05_quality_check.py
 ├── config.cfg
 ├── config_loader.py
 ├── explore_data.ipynb
