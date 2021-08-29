@@ -238,7 +238,7 @@ bucket-name
 ├── 04_create_schema_upload.py
 ├── config.cfg
 ├── config_loader.py
-├── data_explore.ipynb
+├── explore_data.ipynb
 ├── data
 │   ├── raw
 │   └── readme.md
